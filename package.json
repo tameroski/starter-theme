@@ -1,0 +1,33 @@
+{
+  "name": "timber_s",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tameroski/timber_s.git"
+  },
+  "author": "tameroski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tameroski/timber_s_s/issues"
+  },
+  "homepage": "https://github.com/tameroski/timber_s_s#readme",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-replace": "^0.6.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "yargs": "^10.0.3"
+  }
+}
