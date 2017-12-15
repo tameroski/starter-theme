@@ -1,10 +1,17 @@
 {% if menu %}
-	<ul>
 	{% for item in menu %}
-		<li class="{{ item.classes | join(' ') }}">
-			<a target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
-			{% include "menu.twig" with {'menu': item.get_children} %}
-		</li>
+		{% set hasChildren = item.get_children is defined and item.get_children|length > 0 %}
+
+		{% if hasChildren %}
+			<div class="navbar-item has-dropdown is-hoverable {{ item.classes | join(' ') }}">
+				<a class="navbar-link" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+				<div class="navbar-dropdown">
+					{% include "menu.twig" with {'menu': item.get_children} %}
+				</div>
+			</div>
+		{% else %}
+			<a class="navbar-item {{ item.classes | join(' ') }}" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+		{% endif %}
 	{% endfor %}
-	</ul>
+
 {% endif %}
