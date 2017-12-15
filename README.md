@@ -14,7 +14,7 @@ Install this theme as you would any other, and be sure the Timber plugin is acti
 5. Run `npm init --name=THEME_NAME` if you want your theme to have a specific name. No spaces or special characters allowed.
 6. Activate the theme in Appearance >  Themes.
 7. Run `gulp watch` to start watching for sass/javascript changes
-7. Do your thing! And read [the docs](https://github.com/jarednova/timber/wiki)
+8. Do your thing! And read [the docs](https://github.com/jarednova/timber/wiki)
 
 ## What's here?
 
