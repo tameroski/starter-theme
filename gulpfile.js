@@ -82,6 +82,11 @@ gulp.task('serve', ['compile'], function() {
 
 	gulp.watch(paths.source.styles, ['styles']);
 	gulp.watch(paths.source.scripts, ['scripts']);
+	gulp.watch([paths.source.code, paths.source.views] , ['reload']);
+});
+
+gulp.task('reload', [], function() {
+	browserSync.reload();
 });
 
 /* TASKS */
