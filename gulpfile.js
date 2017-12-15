@@ -1,13 +1,17 @@
 'use strict';
 
+/* Change this according to your site URL */
+var proxy = "http://localhost:8888/timber_s";
+
 var gulp = require('gulp'),
-	$ = require( "gulp-load-plugins" )();
+	$ = require( "gulp-load-plugins" )(),
+	browserSync = require('browser-sync').create();
 
 var paths = {
 	source:{
 		scripts: [
-            './src/js/libs/*.js',
-            './src/js/**/*.js',
+            './src/js/lib/*.js',
+            './src/js/*.js',
 		],
 		styles: [
 			'./src/sass/**/*.scss',
@@ -24,11 +28,11 @@ var paths = {
 }
 
 /* STYLES */
-gulp.task('style_clean', function () {
+gulp.task('styles_clean', function () {
     require('del').sync(paths.dest.styles);
 });
 
-gulp.task('style_main', [], function(){
+gulp.task('styles_main', [], function(){
 	return gulp.src('src/sass/style.scss')
 		.pipe($.sass({
 			//includePaths: ["styles"].concat(require('bulma'))
@@ -38,10 +42,11 @@ gulp.task('style_main', [], function(){
 		}))
 		.pipe($.autoprefixer({ browsers:['last 2 versions'] }))
 		.pipe(gulp.dest('./'))
+		.pipe(browserSync.stream())
 });
 
-gulp.task('style', [ 'style_clean' ], function(){
-	gulp.start('style_main');
+gulp.task('styles', [ 'styles_clean' ], function(){
+	gulp.start('styles_main');
 });
 
 /* SCRIPTS */
@@ -53,11 +58,24 @@ gulp.task('scripts_main', [], function(){
 	return gulp.src(paths.source.scripts)
 		.pipe($.concat('app.min.js'))
 		.pipe($.uglify())
-		.pipe(gulp.dest('./static/'));
+		.pipe(gulp.dest('./static/'))
+		.pipe(browserSync.stream())
 });
 
 gulp.task('scripts', [ 'scripts_clean' ], function(){
 	gulp.start('scripts_main');
+});
+
+/* BROWSER SYNC */
+gulp.task('serve', ['compile'], function() {
+	browserSync.init({
+		proxy: proxy,
+		watchTask: true,
+		server: false,
+	});
+
+	gulp.watch(paths.source.styles, ['styles']);
+	gulp.watch(paths.source.scripts, ['scripts']);
 });
 
 /* TASKS */
@@ -74,14 +92,15 @@ gulp.task('init', function(){
 		.pipe($.replace("Text Domain: timber_s", "Text Domain: " + slugify(argv.name) ))
 		.pipe($.replace("timber_s-", slugify(argv.name) + "-"))
 		.pipe(gulp.dest('./'));
-
 });
 
 gulp.task('watch', [], function(){
 	gulp.watch(paths.source.styles, ['default']);
 });
 
-gulp.task('default', [ 'style', 'scripts' ]);
+gulp.task('compile', ['scripts', 'styles']);
+
+gulp.task('default', [ 'serve' ]);
 
 /* UTILS */
 function slugify(text){

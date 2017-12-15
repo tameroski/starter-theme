@@ -25,6 +25,7 @@ class StarterSite extends TimberSite {
 		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
 		parent::__construct();
 	}
 
@@ -34,6 +35,11 @@ class StarterSite extends TimberSite {
 
 	function register_taxonomies() {
 		//this is where you can register custom taxonomies
+	}
+
+	function load_scripts() {
+		$theme = wp_get_theme();
+		wp_enqueue_script( 'theme-scripts', get_template_directory_uri() . '/static/app.min.js', array('jquery'), $theme->Version, true );
 	}
 
 	function add_to_context( $context ) {
