@@ -15,6 +15,12 @@ var paths = {
 		],
 		styles: [
 			'./src/sass/**/*.scss',
+		],
+		code: [
+			'./*.php',
+		],
+		views: [
+			'./templates/**/*.twig',
 		]
 	},
 	dest:{
@@ -91,6 +97,10 @@ gulp.task('init', function(){
 		.pipe($.replace("Theme Name: timber_s", "Theme Name: " + argv.name ))
 		.pipe($.replace("Text Domain: timber_s", "Text Domain: " + slugify(argv.name) ))
 		.pipe($.replace("timber_s-", slugify(argv.name) + "-"))
+		.pipe(gulp.dest('./'));
+
+	gulp.src(paths.source.code, {base: './'})
+		.pipe($.replace("timber_s", slugify(argv.name)))
 		.pipe(gulp.dest('./'));
 });
 
