@@ -26,6 +26,7 @@ class StarterSite extends TimberSite {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
+		add_action( 'widgets_init', array( $this, 'load_sidebars' ) );
 		parent::__construct();
 	}
 
@@ -37,29 +38,37 @@ class StarterSite extends TimberSite {
 		//this is where you can register custom taxonomies
 	}
 
+	function load_sidebars() {
+		register_sidebar( array(
+	        'name' => __( 'Blog Sidebar', 'timber_s' ),
+	        'id' => 'sidebar-blog',
+	        'description' => __( 'Widgets in this area will be shown on the blog page.', 'timber_s' ),
+	    ) );
+	}
+
 	function load_scripts() {
 		$theme = wp_get_theme();
 		wp_enqueue_script( 'theme-scripts', get_template_directory_uri() . '/static/app.min.js', array('jquery'), $theme->Version, true );
 	}
 
 	function add_to_context( $context ) {
-		$context['foo'] = 'bar';
-		$context['stuff'] = 'I am a value set in your functions.php file';
-		$context['notes'] = 'These values are available everytime you call Timber::get_context();';
 		$context['menu'] = new TimberMenu();
 		$context['site'] = $this;
 		return $context;
 	}
 
+	/*
 	function myfoo( $text ) {
 		$text .= ' bar!';
 		return $text;
 	}
+	*/
 
 	function add_to_twig( $twig ) {
 		/* this is where you can add your own functions to twig */
 		$twig->addExtension( new Twig_Extension_StringLoader() );
-		$twig->addFilter('myfoo', new Twig_SimpleFilter('myfoo', array($this, 'myfoo')));
+		
+		//$twig->addFilter('myfoo', new Twig_SimpleFilter('myfoo', array($this, 'myfoo')));
 		return $twig;
 	}
 

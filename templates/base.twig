@@ -17,7 +17,7 @@
 								<h1 class="hdr-logo" role="banner">{{site.name}}</h1>
 							</a>
 
-							<button class="button navbar-burger" data-target="mainMenu">
+							<button class="button navbar-burger" data-target="mainMenu" aria-label="Toggle menu">
 								<span></span>
 								<span></span>
 								<span></span>
@@ -39,16 +39,24 @@
 
 			<div class="container">
 				{% if title %}<h1 class="title">{{title}}</h1>{% endif %}
-				<div class="wrapper {{sidebar_class}}">
-					{% block content %}
-						Sorry, no content
-					{% endblock %}
-				</div>
+
 				{% if sidebar %}
-					<aside class="layout-sidebar">
-						{{sidebar}}
-					</aside>
+					<div class="columns">
+						<div class="column is-three-quarters">
 				{% endif %}
+
+				{% block content %}
+					Sorry, no content
+				{% endblock %}
+
+				{% if sidebar %}
+						</div>
+						<aside>
+							{{sidebar}}
+						</aside>
+					</div>
+				{% endif %}
+				
 			</div>
 
 		</section>
@@ -59,7 +67,7 @@
 				<div class="container">
 					{% include 'footer.twig' %}
 				</div>
-				
+
 			</footer>
 			{{ function('wp_footer') }}
 		{% endblock %}

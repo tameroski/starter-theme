@@ -4,16 +4,15 @@
 
     $(document).ready(function(){
 
-    	console.log('Here we are');
+    	/* Bulma's Burger Menu */
+	    $('.navbar-burger').each(function(){
+	    	$(this).on('click', function(){
+	    		var target = $(this).data('target');
+	    		$(this).toggleClass('is-active');
+	    		$('#'+target).toggleClass('is-active');
+	    	});
+	    });
 
-    });
-
-    $('.navbar-burger').each(function(){
-    	$(this).on('click', function(){
-    		var target = $(this).data('target');
-    		$(this).toggleClass('is-active');
-    		$('#'+target).toggleClass('is-active');
-    	});
     });
 
 })(jQuery);
