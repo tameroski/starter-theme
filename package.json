@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.18.13",
+    "bulma": "^0.6.1",
     "del": "^3.0.0",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-clean-css": "^3.9.0",
